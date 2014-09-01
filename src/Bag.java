@@ -1,3 +1,4 @@
+import java.util.Random;
 /**
  * Created by trent on 9/1/14.
  */
@@ -11,32 +12,92 @@ public class Bag {
     }
 
     public void add(int addValue){
-        bag[numElements] = addValue;
+        int count=0;
+        if(numElements != bag.length) {
+            bag[numElements] = addValue;
+            count++;
+        }
+        else {
+            System.out.println("Could not add element, array is full.");
+        }
+        count++;
         numElements++;
+        count++;
+        System.out.println("Complexity for add method: " + count);
     }
     public void removeRandom(){
-
+        int count=0;
+        bag[new Random().nextInt(numElements)] = bag[numElements-1];
+        count++;
+        bag[numElements-1] = 0;
+        count++;
+        numElements--;
+        count++;
+        System.out.println("Complexity for removeRandom method: " + count);
     }
-    public void remove(int element){
-
+    public void remove(int integer){
+        int count=0;
+        if(contains(integer)){
+            for(int index=0; index<numElements; index++){
+                if(bag[index] == integer){
+                    count++;
+                    bag[index] = bag[numElements-1];
+                    count++;
+                    bag[numElements-1] = 0;
+                    count++;
+                    numElements--;
+                    count++;
+                }
+            }
+        }
+        count++; //To count the contains conditional check
+        System.out.println("Complexity for remove method: " + count);
     }
+
     public boolean isEmpty(){
-        return true;
+        int count=1;
+        System.out.println("Complexity for isEmpty method: " + count);
+        return (numElements==0) ? true: false;
     }
+
     public boolean contains(int integer){
-        return true;
+        int count=0;
+        for(int index=0; index<numElements;index++){
+            if (bag[index] == integer){
+                return true;
+            }
+            count++;
+        }
+        System.out.println("Complexity for contains method: " + count);
+        return false;
     }
+
     public int size(){
         return numElements;
     }
+
     public Bag addAll(Bag otherBag){
-
+        int count=0;
+        for(int value : otherBag.bag){
+            if(numElements != bag.length){
+                bag[numElements]=value;
+                count++;
+            }else{
+                System.out.println("Could not add value, maximum array size reached.");
+                break;
+            }
+            count++;
+        }
+        return this;
     }
-    public Bag union(Bag bag1, Bag bag2){
 
+    public static Bag union(Bag bag1, Bag bag2){
+        Bag unionBag = new Bag(bag1.bag.length + bag2.bag.length);
+        return unionBag;
     }
+
     public boolean equals(Bag otherBag){
-
+        return true;
     }
 
 }
