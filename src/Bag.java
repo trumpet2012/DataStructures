@@ -79,8 +79,8 @@ public class Bag {
     public Bag addAll(Bag otherBag){
         int count=0;
         for(int value : otherBag.bag){
-            if(numElements != bag.length){
-                bag[numElements]=value;
+            if(numElements != bag.length) {
+                bag[numElements] = value;
                 count++;
             }else{
                 System.out.println("Could not add value, maximum array size reached.");
@@ -88,11 +88,26 @@ public class Bag {
             }
             count++;
         }
+        System.out.println("Complexity for addAll method: " + count);
         return this;
     }
 
     public static Bag union(Bag bag1, Bag bag2){
+        int count=0;
         Bag unionBag = new Bag(bag1.bag.length + bag2.bag.length);
+        count++;
+        int unionBagCount = 0;
+        for(int value : bag1.bag){
+            unionBag.bag[unionBagCount] = value;
+            count++;
+            unionBagCount++;
+        }
+        for(int value : bag2.bag){
+            unionBag.bag[unionBagCount] = value;
+            count++;
+            unionBagCount++;
+        }
+        System.out.println("Complexity for union method: " + count);
         return unionBag;
     }
 
